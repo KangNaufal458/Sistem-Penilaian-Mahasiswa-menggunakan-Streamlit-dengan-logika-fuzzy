@@ -82,17 +82,17 @@ st.latex(rf'''
 
 st.markdown("---")
 
-# 2. Perhitungan Derajat Keanggotaan
-st.header("2. Perhitungan Derajat Keanggotaan")
+# 2. Tabel Derajat Keanggotaan
+st.header("2. Tabel Derajat Keanggotaan")
 st.write(f"Berdasarkan nilai yang dimasukkan (**x = {nilai}**), berikut adalah nilai derajat keanggotaannya:")
 
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.info(f"**Rendah:**\n\n $\mu = {mu_r:.2f}$")
-with col2:
-    st.warning(f"**Sedang:**\n\n $\mu = {mu_s:.2f}$")
-with col3:
-    st.success(f"**Tinggi:**\n\n $\mu = {mu_t:.2f}$")
+data_derajat = [
+    {"Kategori Penilaian": "Rendah", "Derajat Keanggotaan (μ)": f"{mu_r:.2f}"},
+    {"Kategori Penilaian": "Sedang", "Derajat Keanggotaan (μ)": f"{mu_s:.2f}"},
+    {"Kategori Penilaian": "Tinggi", "Derajat Keanggotaan (μ)": f"{mu_t:.2f}"}
+]
+
+st.table(data_derajat)
 
 st.markdown("---")
 
