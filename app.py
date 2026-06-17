@@ -40,35 +40,44 @@ nilai = st.sidebar.number_input("Masukkan Nilai Mahasiswa (0-100):", min_value=0
 
 mu_r, mu_s, mu_t = hitung_derajat_keanggotaan(nilai)
 
-# 1. Fungsi Keanggotaan
-st.header("1. Fungsi Keanggotaan")
-st.write("Berikut adalah rumus matematis fungsi keanggotaan yang digunakan:")
+# 1. Derajat Keanggotaan Input
+st.header("1. Derajat Keanggotaan Input")
+st.write(f"Berikut adalah proses perhitungan derajat keanggotaan untuk input nilai **x = {nilai}**:")
 
-st.latex(r'''
-\mu_{Rendah}(x) = 
-\begin{cases} 
-1, & x \le 40 \\
-\frac{60 - x}{20}, & 40 < x < 60 \\
-0, & x \ge 60 
-\end{cases}
+# Kalkulasi LaTeX dinamis untuk Rendah
+if nilai <= 40:
+    calc_r = "1"
+elif 40 < nilai < 60:
+    calc_r = f"\\frac{{60 - {nilai}}}{{20}} = {mu_r:.2f}"
+else:
+    calc_r = "0"
+
+st.latex(rf'''
+\mu_{{Rendah}}({nilai}) = {calc_r}
 ''')
 
-st.latex(r'''
-\mu_{Sedang}(x) = 
-\begin{cases} 
-0, & x \le 40 \text{ atau } x \ge 80 \\
-\frac{x - 40}{20}, & 40 < x \le 60 \\
-\frac{80 - x}{20}, & 60 < x < 80 
-\end{cases}
+# Kalkulasi LaTeX dinamis untuk Sedang
+if nilai <= 40 or nilai >= 80:
+    calc_s = "0"
+elif 40 < nilai <= 60:
+    calc_s = f"\\frac{{{nilai} - 40}}{{20}} = {mu_s:.2f}"
+elif 60 < nilai < 80:
+    calc_s = f"\\frac{{80 - {nilai}}}{{20}} = {mu_s:.2f}"
+
+st.latex(rf'''
+\mu_{{Sedang}}({nilai}) = {calc_s}
 ''')
 
-st.latex(r'''
-\mu_{Tinggi}(x) = 
-\begin{cases} 
-0, & x \le 60 \\
-\frac{x - 60}{20}, & 60 < x < 80 \\
-1, & x \ge 80 
-\end{cases}
+# Kalkulasi LaTeX dinamis untuk Tinggi
+if nilai <= 60:
+    calc_t = "0"
+elif 60 < nilai < 80:
+    calc_t = f"\\frac{{{nilai} - 60}}{{20}} = {mu_t:.2f}"
+else:
+    calc_t = "1"
+
+st.latex(rf'''
+\mu_{{Tinggi}}({nilai}) = {calc_t}
 ''')
 
 st.markdown("---")
